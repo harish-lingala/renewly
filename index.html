@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Renewly: Policy & Warranty Reminders</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="Renewly mobile app prototype">
+      <section class="app-screen">
+        <header class="topbar">
+          <button class="header-icon" type="button" data-action="open-settings" aria-label="Open options">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v2H4zm0 4h16v2H4zm0 4h16v2H4z" /></svg>
+          </button>
+          <div>
+            <h1 id="top-title">Renewly</h1>
+            <p id="top-subtitle">Policy & Warranty Reminders</p>
+          </div>
+          <div class="header-actions">
+            <button class="header-icon" type="button" data-action="toggle-search" aria-label="Search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 0 1 5.14 10.48l4.44 4.44-1.42 1.42-4.44-4.44A6.5 6.5 0 1 1 10.5 4zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z" /></svg>
+            </button>
+            <button class="header-icon" type="button" data-action="open-notifications" aria-label="Open notifications">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8A2.5 2.5 0 0 0 12 22zm7-6v-5a7 7 0 0 0-5-6.7V3a2 2 0 0 0-4 0v1.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1z" /></svg>
+            </button>
+          </div>
+        </header>
+        <div class="top-search-panel" id="top-search-panel" hidden>
+          <label class="search-field">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 0 1 5.14 10.48l4.44 4.44-1.42 1.42-4.44-4.44A6.5 6.5 0 1 1 10.5 4zm0 2a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9z" /></svg>
+            <input id="global-search-input" type="search" placeholder="Search Renewly" />
+          </label>
+        </div>
+
+        <section class="content active" id="view-home" data-view="home">
+          <label class="search-field screen-search">
+            <span aria-hidden="true">Search</span>
+            <input id="home-search-input" type="search" placeholder="Search home" />
+          </label>
+
+          <div class="announcement-carousel" aria-label="Renewly announcements">
+            <div class="announcement-track" id="announcement-track">
+              <article class="announcement-slide">
+                <small>Welcome</small>
+                <strong>Welcome to Renewly</strong>
+                <span>Track vehicle and gadget renewals in one calm place.</span>
+              </article>
+              <article class="announcement-slide offer">
+                <small>Reminder</small>
+                <strong>Keep bills ready</strong>
+                <span>Add photos now so renewal time is easier later.</span>
+              </article>
+            </div>
+            <div class="announcement-dots" aria-label="Announcement slides">
+              <button class="active" type="button" data-slide-index="0" aria-label="Show welcome slide"></button>
+              <button type="button" data-slide-index="1" aria-label="Show reminder slide"></button>
+            </div>
+          </div>
+
+          <div class="section-heading compact">
+            <h2>Overview</h2>
+            <small>Today, 1 May</small>
+          </div>
+          <div class="summary-grid" aria-label="Renewly summary">
+            <button type="button" data-summary-filter="upcoming" aria-label="View upcoming records"><span id="summary-upcoming">0</span><small>Upcoming</small></button>
+            <button type="button" data-summary-filter="due-week" aria-label="View records due this week"><span id="summary-due-week">0</span><small>Due This Week</small></button>
+            <button type="button" data-summary-filter="overdue" aria-label="View overdue records"><span id="summary-overdue">0</span><small>Overdue</small></button>
+            <button type="button" data-summary-filter="service" aria-label="View service due records"><span id="summary-service">0</span><small>Service Due</small></button>
+          </div>
+
+          <div class="section-heading">
+            <h2>Upcoming & Due</h2>
+            <button type="button" data-action="show-records">View all</button>
+          </div>
+          <div class="record-list" id="attention-list"></div>
+
+          <div class="section-heading">
+            <h2>Service Reminders</h2>
+            <button type="button" data-filter-shortcut="Automobile">View all</button>
+          </div>
+          <div class="record-list" id="service-list"></div>
+        </section>
+
+        <section class="content" id="view-records" data-view="records">
+          <div class="toolbar">
+            <label class="search-field">
+              <span aria-hidden="true">Search</span>
+              <input id="search-input" type="search" placeholder="Search records" />
+            </label>
+            <select id="category-filter" aria-label="Filter records by category">
+              <option value="All">All</option>
+              <option value="Automobile">Automobiles</option>
+              <option value="Electronics">Electronics</option>
+            </select>
+          </div>
+          <div class="record-list" id="record-list"></div>
+        </section>
+
+        <section class="content" id="view-calendar" data-view="calendar">
+          <label class="search-field screen-search">
+            <span aria-hidden="true">Search</span>
+            <input id="calendar-search-input" type="search" placeholder="Search calendar" />
+          </label>
+          <div class="calendar-card">
+            <div>
+              <p class="eyebrow">May 2026</p>
+              <h2>Renewal Calendar</h2>
+            </div>
+            <div class="calendar-strip" id="calendar-strip"></div>
+          </div>
+          <div class="section-heading"><h2>Upcoming Timeline</h2></div>
+          <div class="timeline" id="timeline-list"></div>
+        </section>
+
+        <section class="content" id="view-documents" data-view="documents">
+          <label class="search-field screen-search">
+            <span aria-hidden="true">Search</span>
+            <input id="document-search-input" type="search" placeholder="Search documents" />
+          </label>
+          <div class="segment-tabs" aria-label="Filter documents">
+            <button class="active" type="button" data-document-filter="All">All</button>
+            <button type="button" data-document-filter="Automobile">Automobiles</button>
+            <button type="button" data-document-filter="Electronics">Electronics</button>
+          </div>
+          <div class="section-heading">
+            <h2>Documents</h2>
+            <button type="button" data-action="open-add">Attach new</button>
+          </div>
+          <div class="document-list" id="document-list"></div>
+        </section>
+
+        <section class="content" id="view-settings" data-view="settings">
+          <label class="search-field screen-search">
+            <span aria-hidden="true">Search</span>
+            <input id="settings-search-input" type="search" placeholder="Search settings" />
+          </label>
+          <div class="settings-group" data-settings-group="reminder defaults 90 days 30 days 7 days 1 day before">
+            <h2>Reminder Defaults</h2>
+            <label><input type="checkbox" checked data-reminder="90" /> 90 days before</label>
+            <label><input type="checkbox" checked data-reminder="30" /> 30 days before</label>
+            <label><input type="checkbox" checked data-reminder="7" /> 7 days before</label>
+            <label><input type="checkbox" checked data-reminder="1" /> 1 day before</label>
+          </div>
+          <div class="settings-group" data-settings-group="family labels self spouse child parent shared">
+            <h2>Family Labels</h2>
+            <div class="chip-row">
+              <span>Self</span><span>Spouse</span><span>Child</span><span>Parent</span><span>Shared</span>
+            </div>
+          </div>
+          <div class="settings-group" data-settings-group="privacy backup app lock export reset demo data local first">
+            <h2>Privacy & Backup</h2>
+            <label><input type="checkbox" id="app-lock-toggle" /> App lock</label>
+            <button class="settings-button" type="button" data-action="export-data">Backup now</button>
+            <button class="settings-button muted" type="button" data-action="reset-demo">Reset demo data</button>
+            <p class="settings-note" id="settings-note">Local-first data is stored in this browser.</p>
+          </div>
+          <div class="settings-group" data-settings-group="notifications reminder alerts permission android local notifications">
+            <h2>Notification Readiness</h2>
+            <label><input type="checkbox" id="notification-ready-toggle" /> Prepare reminder alerts</label>
+            <p class="settings-note" id="notification-note">Real Android notifications will be connected in the native app step.</p>
+          </div>
+          <div class="settings-group" data-settings-group="ocr future bill policy warranty card scan">
+            <h2>Future OCR</h2>
+            <p class="settings-note">OCR is intentionally outside this MVP. For now, attach photos manually and keep records simple.</p>
+          </div>
+        </section>
+
+        <button class="fab" type="button" data-action="open-add" aria-label="Add record">+</button>
+
+        <nav class="bottom-nav" aria-label="Primary navigation">
+          <button class="active" type="button" data-nav="home" aria-label="Home">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5V21h-6v-6H9v6H3z" /></svg>
+            <span>Home</span>
+          </button>
+          <button type="button" data-nav="records" aria-label="Records">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2zm2 5h6v2H9zm0 4h6v2H9z" /></svg>
+            <span>Records</span>
+          </button>
+          <button type="button" data-nav="calendar" aria-label="Calendar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v3h6V2h2v3h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3zm13 8H4v10h16z" /></svg>
+            <span>Calendar</span>
+          </button>
+          <button type="button" data-nav="documents" aria-label="Documents">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l4 4v16H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V7h3.5zM8 12h8v2H8zm0 4h8v2H8z" /></svg>
+            <span>Docs</span>
+          </button>
+        </nav>
+      </section>
+    </main>
+
+    <dialog class="record-dialog" id="record-dialog">
+      <form id="record-form" method="dialog">
+        <div class="dialog-header">
+          <div>
+            <p class="eyebrow" id="record-form-mode">New reminder</p>
+            <h2 id="record-form-title">Add Record</h2>
+          </div>
+          <button class="icon-button" type="button" data-action="close-add" aria-label="Close">X</button>
+        </div>
+
+        <label>Category
+          <select name="category" required>
+            <option value="Automobile">Automobile</option>
+            <option value="Electronics">Electronics</option>
+          </select>
+        </label>
+        <label>Item name
+          <input name="title" required placeholder="Car insurance, iPhone warranty" />
+        </label>
+        <div class="two-column">
+          <label>Type
+            <select name="type" required>
+              <option>Insurance</option><option>Warranty</option><option>Service</option><option>PUC</option><option>AMC</option>
+            </select>
+          </label>
+          <label>Full name
+            <input name="owner" required placeholder="Name as per policy or bill" />
+          </label>
+        </div>
+        <div class="two-column">
+          <label>Start date
+            <input name="startDate" type="date" required />
+          </label>
+          <label>Expiry date
+            <input name="expiryDate" type="date" required />
+          </label>
+        </div>
+        <label>Provider or seller
+          <input name="provider" placeholder="ICICI Lombard, Croma, Apple" />
+        </label>
+        <div class="two-column">
+          <label>Policy / serial no.
+            <input name="referenceNumber" placeholder="Policy no., IMEI, serial no." />
+          </label>
+          <label>Amount / premium
+            <input name="amount" inputmode="decimal" placeholder="Example: 12450" />
+          </label>
+        </div>
+        <label>Coverage / value
+          <input name="coverageValue" placeholder="IDV, covered value, warranty value" />
+        </label>
+        <div class="category-fields automobile-fields" data-category-fields="Automobile">
+          <div class="two-column">
+            <label>Registration no.
+              <input name="vehicleNumber" placeholder="MH01AB1234" />
+            </label>
+            <label>Odometer / service km
+              <input name="odometer" inputmode="numeric" placeholder="Example: 45000" />
+            </label>
+          </div>
+        </div>
+        <div class="category-fields electronics-fields" data-category-fields="Electronics">
+          <div class="two-column">
+            <label>Purchase store
+              <input name="purchaseStore" placeholder="Croma, Amazon, Apple" />
+            </label>
+            <label>Warranty type
+              <input name="warrantyType" placeholder="Brand, extended, AMC" />
+            </label>
+          </div>
+        </div>
+        <label>Document name
+          <input name="documentName" placeholder="Bill photo, policy PDF, warranty card" />
+        </label>
+        <label>Attach photo or file
+          <input name="documentFile" type="file" accept="image/*,.pdf" />
+        </label>
+        <label>Notes
+          <textarea name="notes" rows="3" placeholder="Policy number, serial number, service center info"></textarea>
+        </label>
+
+        <div class="dialog-actions">
+          <button class="ghost-button" type="button" data-action="close-add">Cancel</button>
+          <button class="primary-button" type="submit">Save record</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="record-dialog" id="renewal-dialog">
+      <form id="renewal-form" method="dialog">
+        <div class="dialog-header">
+          <div>
+            <p class="eyebrow">Linked renewal</p>
+            <h2>Renew Record</h2>
+          </div>
+          <button class="icon-button" type="button" data-action="close-renewal" aria-label="Close">X</button>
+        </div>
+
+        <label>New provider or seller
+          <input name="provider" placeholder="Renewal provider" />
+        </label>
+        <div class="two-column">
+          <label>Renewal date
+            <input name="renewalDate" type="date" required />
+          </label>
+          <label>New expiry date
+            <input name="expiryDate" type="date" required />
+          </label>
+        </div>
+        <label>Amount paid
+          <input name="amount" inputmode="decimal" placeholder="Example: 14500" />
+        </label>
+        <label>New bill or policy document name
+          <input name="documentName" placeholder="Renewal bill, policy PDF, invoice" />
+        </label>
+        <label>Attach new photo or file
+          <input name="documentFile" type="file" accept="image/*,.pdf" />
+        </label>
+        <label>Renewal notes
+          <textarea name="notes" rows="3" placeholder="Coverage changes, plan details, policy number"></textarea>
+        </label>
+
+        <div class="dialog-actions">
+          <button class="ghost-button" type="button" data-action="close-renewal">Cancel</button>
+          <button class="primary-button" type="submit">Save renewal</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="record-dialog" id="document-dialog">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow" id="document-dialog-category">Document</p>
+          <h2 id="document-dialog-title">Document Details</h2>
+        </div>
+        <button class="icon-button" type="button" data-action="close-document" aria-label="Close">X</button>
+      </div>
+      <div class="document-detail" id="document-detail"></div>
+      <div class="dialog-actions">
+        <button class="ghost-button" type="button" data-action="close-document">Close</button>
+      </div>
+    </dialog>
+
+    <dialog class="record-dialog" id="notification-dialog">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">Reminders</p>
+          <h2>Upcoming Notifications</h2>
+        </div>
+        <button class="icon-button" type="button" data-action="close-notifications" aria-label="Close">X</button>
+      </div>
+      <div class="notification-list" id="notification-list"></div>
+      <div class="dialog-actions">
+        <button class="ghost-button" type="button" data-action="close-notifications">Close</button>
+      </div>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

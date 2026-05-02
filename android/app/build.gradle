@@ -1,0 +1,33 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.renewly.app"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.renewly.app"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("RENEWLY_KEYSTORE_FILE") ?: "renewly-release.keystore")
+            storePassword System.getenv("RENEWLY_KEYSTORE_PASSWORD") ?: ""
+            keyAlias System.getenv("RENEWLY_KEY_ALIAS") ?: "renewly"
+            keyPassword System.getenv("RENEWLY_KEY_PASSWORD") ?: ""
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}

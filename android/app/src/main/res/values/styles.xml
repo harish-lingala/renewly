@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Renewly" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowBackground">@color/renewly_surface</item>
+        <item name="android:colorAccent">@color/renewly_brand</item>
+        <item name="android:navigationBarColor">@color/renewly_surface</item>
+        <item name="android:statusBarColor">@color/renewly_surface</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

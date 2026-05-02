@@ -1,0 +1,20 @@
+# Build outputs
+android/.gradle/
+android/build/
+android/app/build/
+
+# Local Android config
+android/local.properties
+android/.idea/
+
+# Release signing material
+android/app/*.keystore
+android/app/*.jks
+
+# Packaged binaries
+*.apk
+*.aab
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
