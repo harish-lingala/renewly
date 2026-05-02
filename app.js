@@ -136,6 +136,23 @@ function loadRecords() {
 
 function saveRecords() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.records));
+  syncNativeReminders();
+}
+
+function syncNativeReminders() {
+  if (!window.RenewlyAndroid?.syncReminders) return;
+  window.RenewlyAndroid.syncReminders(JSON.stringify(state.records));
+}
+
+function requestNativeNotifications() {
+  if (!window.RenewlyAndroid) {
+    document.querySelector("#notification-note").textContent =
+      "Notification preview is available inside the Android app build.";
+    return;
+  }
+  window.RenewlyAndroid.requestNotifications();
+  window.RenewlyAndroid.syncReminders(JSON.stringify(state.records));
+  window.RenewlyAndroid.showTestNotification();
 }
 
 function daysUntil(dateValue) {
@@ -1114,6 +1131,9 @@ document.querySelector("#notification-ready-toggle").addEventListener("change", 
   document.querySelector("#notification-note").textContent = event.target.checked
     ? "Reminder alerts are marked ready for the Android notification step."
     : "Real Android notifications will be connected in the native app step.";
+  if (event.target.checked) {
+    requestNativeNotifications();
+  }
 });
 elements.form.elements.category.addEventListener("change", updateCategoryFields);
 document.querySelectorAll("[data-reminder]").forEach((input) => input.addEventListener("change", render));
@@ -1126,3 +1146,4 @@ setInterval(() => {
 
 render();
 updateCategoryFields();
+syncNativeReminders();

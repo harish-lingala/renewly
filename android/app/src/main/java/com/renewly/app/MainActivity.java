@@ -2,10 +2,15 @@ package com.renewly.app;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Build;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -14,6 +19,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
     private static final int FILE_CHOOSER_REQUEST = 1001;
+    private static final int NOTIFICATION_PERMISSION_REQUEST = 1002;
 
     private WebView webView;
     private ValueCallback<Uri[]> filePathCallback;
@@ -40,6 +46,7 @@ public class MainActivity extends Activity {
 
         WebView.setWebContentsDebuggingEnabled(false);
         webView.setWebViewClient(new WebViewClient());
+        webView.addJavascriptInterface(new RenewlyBridge(this), "RenewlyAndroid");
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onShowFileChooser(
@@ -64,6 +71,7 @@ public class MainActivity extends Activity {
         });
 
         setContentView(webView);
+        ReminderScheduler.createNotificationChannel(this);
         webView.loadUrl("file:///android_asset/index.html");
     }
 
@@ -95,5 +103,41 @@ public class MainActivity extends Activity {
             webView = null;
         }
         super.onDestroy();
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= 33
+                && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST);
+        }
+    }
+
+    private static class RenewlyBridge {
+        private final Context context;
+        private final MainActivity activity;
+
+        RenewlyBridge(MainActivity activity) {
+            this.activity = activity;
+            this.context = activity.getApplicationContext();
+        }
+
+        @JavascriptInterface
+        public void requestNotifications() {
+            activity.runOnUiThread(activity::requestNotificationPermission);
+        }
+
+        @JavascriptInterface
+        public void syncReminders(String recordsJson) {
+            ReminderScheduler.scheduleFromJson(context, recordsJson);
+        }
+
+        @JavascriptInterface
+        public void showTestNotification() {
+            ReminderScheduler.showNow(
+                    context,
+                    "Renewly reminders ready",
+                    "You will receive alerts for upcoming renewals and service dates."
+            );
+        }
     }
 }
