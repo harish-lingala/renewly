@@ -27,6 +27,7 @@
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
   display: grid;
   place-items: center;
   background: linear-gradient(135deg, #e3f3fb 0%, #f8fbfd 54%, #eef8ea 100%);
@@ -730,6 +731,8 @@ h2 {
   display: grid;
   gap: 12px;
   padding: 18px;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .document-group {
@@ -1015,6 +1018,13 @@ h2 {
   overscroll-behavior: contain;
 }
 
+#document-dialog[open],
+#notification-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .record-dialog::backdrop {
   background: rgba(14, 24, 34, 0.48);
 }
@@ -1148,11 +1158,17 @@ h2 {
   }
 
   .record-dialog {
-    width: 100vw;
-    max-width: 100vw;
-    max-height: 74dvh;
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    max-height: calc(100dvh - 20px);
     margin: auto 0 0;
     border-radius: 18px 18px 0 0;
+  }
+
+  #document-dialog,
+  #notification-dialog {
+    margin: auto;
+    border-radius: 16px;
   }
 
   .record-dialog form {
@@ -1177,6 +1193,28 @@ h2 {
     padding: 12px 14px 20px;
     background: var(--panel);
     border-top: 1px solid var(--line);
+  }
+
+  #document-dialog .dialog-header,
+  #notification-dialog .dialog-header {
+    margin: 0;
+    padding: 14px 14px 10px;
+  }
+
+  #document-dialog .dialog-actions,
+  #notification-dialog .dialog-actions {
+    margin: 0;
+    padding: 10px 14px 14px;
+  }
+
+  .document-detail,
+  .notification-list {
+    padding: 14px;
+  }
+
+  .document-preview {
+    min-height: 132px;
+    padding: 14px;
   }
 
   .dialog-actions.wrap button {
