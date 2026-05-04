@@ -921,6 +921,11 @@ h2 {
   color: var(--ink);
 }
 
+.settings-button.secondary {
+  background: var(--brand-soft);
+  color: var(--brand-dark);
+}
+
 .settings-note {
   margin-bottom: 0;
   color: var(--muted);

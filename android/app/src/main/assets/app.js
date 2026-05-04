@@ -1,4 +1,5 @@
 const STORAGE_KEY = "renewly.records.v2";
+const PRIVACY_POLICY_URL = "https://harish-lingala.github.io/renewly/privacy-policy.html";
 const today = new Date("2026-05-01T00:00:00");
 
 const seedRecords = [
@@ -153,6 +154,14 @@ function requestNativeNotifications() {
   window.RenewlyAndroid.requestNotifications();
   window.RenewlyAndroid.syncReminders(JSON.stringify(state.records));
   window.RenewlyAndroid.showTestNotification();
+}
+
+function openPrivacyPolicy() {
+  if (window.RenewlyAndroid?.openExternal) {
+    window.RenewlyAndroid.openExternal(PRIVACY_POLICY_URL);
+    return;
+  }
+  window.open(PRIVACY_POLICY_URL, "_blank", "noopener");
 }
 
 function daysUntil(dateValue) {
@@ -1038,6 +1047,7 @@ document.addEventListener("click", (event) => {
     if (!elements.topSearchPanel.hidden) elements.globalSearchInput.focus();
   }
   if (action === "edit-record") openEditForm();
+  if (action === "open-privacy") openPrivacyPolicy();
   if (action === "export-data") exportData();
   if (action === "reset-demo") resetDemoData();
   if (action === "archive-record") {

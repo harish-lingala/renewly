@@ -22,7 +22,7 @@
 
 ## App Content
 
-- Privacy policy: enable GitHub Pages from `/docs`, then use `https://harish-lingala.github.io/renewly/privacy-policy.html`
+- Privacy policy: enable GitHub Pages, then use `https://harish-lingala.github.io/renewly/privacy-policy.html`
 - Ads: No
 - App access: All functionality available without special access
 - Content rating: Utility/productivity app

@@ -139,5 +139,13 @@ public class MainActivity extends Activity {
                     "You will receive alerts for upcoming renewals and service dates."
             );
         }
+
+        @JavascriptInterface
+        public void openExternal(String url) {
+            activity.runOnUiThread(() -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                activity.startActivity(intent);
+            });
+        }
     }
 }
