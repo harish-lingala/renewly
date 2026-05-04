@@ -3,7 +3,7 @@
 ## Current Upload Build
 
 - App name: Renewly
-- Package name: `com.renewly.app`
+- Package name: `com.harishlingala.renewly`
 - Version: `1.0`
 - Version code: `1`
 - Play Store upload file: `android/app/build/outputs/bundle/release/app-release.aab`
@@ -23,7 +23,7 @@
 ## Play Console Steps
 
 1. Create a new Play Console app named `Renewly`.
-2. Use package name `com.renewly.app`.
+2. Use package name `com.harishlingala.renewly`.
 3. Upload `android/app/build/outputs/bundle/release/app-release.aab`.
 4. Start with an Internal testing release.
 5. Add testers using email list or Google Group.
