@@ -4,8 +4,8 @@
 
 - App name: Renewly
 - Package name: `com.amateurlabs.renewly`
-- Version: `1.0`
-- Version code: `1`
+- Version: `1.0.1`
+- Version code: `2`
 - Play Store upload file: `android/app/build/outputs/bundle/release/app-release.aab`
 - Share/install test file: `android/app/build/outputs/apk/release/app-release.apk`
 
